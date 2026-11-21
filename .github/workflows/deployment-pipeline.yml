@@ -32,21 +32,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Import Turbo secrets from Vault
-        uses: hashicorp/vault-action@v3
-        with:
-          url: ${{ env.VAULT_ADDR }}
-          method: jwt
-          path: jwt
-          role: github-actions
-          jwtGithubAudience: https://vault.chrisvouga.dev
-          # The Turbo remote cache secrets were retired from Vault; build without
-          # remote cache when they are absent.
-          ignoreNotFound: true
-          secrets: |
-            secret/data/personal/prd TURBO_API | TURBO_API ;
-            secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
-            secret/data/personal/prd TURBO_TEAM | TURBO_TEAM
 
       - name: Type check
         run: bunx turbo run type-check:once
@@ -67,21 +52,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Import Turbo secrets from Vault
-        uses: hashicorp/vault-action@v3
-        with:
-          url: ${{ env.VAULT_ADDR }}
-          method: jwt
-          path: jwt
-          role: github-actions
-          jwtGithubAudience: https://vault.chrisvouga.dev
-          # The Turbo remote cache secrets were retired from Vault; build without
-          # remote cache when they are absent.
-          ignoreNotFound: true
-          secrets: |
-            secret/data/personal/prd TURBO_API | TURBO_API ;
-            secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
-            secret/data/personal/prd TURBO_TEAM | TURBO_TEAM
 
       - name: Check for circular dependencies
         run: bunx turbo run circular
@@ -122,14 +92,8 @@ jobs:
           path: jwt
           role: github-actions
           jwtGithubAudience: https://vault.chrisvouga.dev
-          # The Turbo remote cache secrets were retired from Vault; build without
-          # remote cache when they are absent.
-          ignoreNotFound: true
           secrets: |
-            secret/data/personal/dev OPENAI_API_KEY | OPENAI_API_KEY ;
-            secret/data/personal/prd TURBO_API | TURBO_API ;
-            secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
-            secret/data/personal/prd TURBO_TEAM | TURBO_TEAM
+            secret/data/personal/dev OPENAI_API_KEY | OPENAI_API_KEY
 
       - name: Run tests
         env:
@@ -172,21 +136,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Import Turbo secrets from Vault
-        uses: hashicorp/vault-action@v3
-        with:
-          url: ${{ env.VAULT_ADDR }}
-          method: jwt
-          path: jwt
-          role: github-actions
-          jwtGithubAudience: https://vault.chrisvouga.dev
-          # The Turbo remote cache secrets were retired from Vault; build without
-          # remote cache when they are absent.
-          ignoreNotFound: true
-          secrets: |
-            secret/data/personal/prd TURBO_API | TURBO_API ;
-            secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
-            secret/data/personal/prd TURBO_TEAM | TURBO_TEAM
 
       - name: Get Playwright version
         id: playwright-version
