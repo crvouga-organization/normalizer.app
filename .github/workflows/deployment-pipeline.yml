@@ -110,7 +110,9 @@ jobs:
 
   test-e2e:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    # The pinned Playwright release has no Chromium build for Ubuntu 26.04,
+    # which ubuntu-latest now resolves to.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
