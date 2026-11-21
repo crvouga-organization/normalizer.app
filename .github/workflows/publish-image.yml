@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   normalizer:
-    uses: crvouga/chrisvouga.dev/.github/workflows/reusable-publish-image.yml@main
+    uses: crvouga-organization/personal/.github/workflows/reusable-publish-image.yml@main
     secrets:
       DEPLOY_DISPATCH_TOKEN: ${{ secrets.DEPLOY_DISPATCH_TOKEN }}
     with:
@@ -27,7 +27,7 @@ jobs:
       context: .
 
   normalizer_worker:
-    uses: crvouga/chrisvouga.dev/.github/workflows/reusable-publish-image.yml@main
+    uses: crvouga-organization/personal/.github/workflows/reusable-publish-image.yml@main
     secrets:
       DEPLOY_DISPATCH_TOKEN: ${{ secrets.DEPLOY_DISPATCH_TOKEN }}
     with:
