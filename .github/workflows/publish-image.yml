@@ -17,26 +17,28 @@ permissions:
   packages: write
 
 # The normalizer services are not in the infra inventory, so images are
-# published without dispatching a deploy.
+# published without dispatching a deploy. The packages are linked to this
+# repository in the crvouga-organization namespace, so the workflow token can
+# push them; the repository has no working personal-namespace token.
 jobs:
   normalizer:
     uses: crvouga-organization/personal/.github/workflows/publish.yml@main
     secrets:
-      DEPLOY_DISPATCH_TOKEN: ${{ secrets.DEPLOY_DISPATCH_TOKEN }}
       CALLER_GITHUB_TOKEN: ${{ github.token }}
     with:
       service_id: normalizer
       dockerfile: infra/server.Dockerfile
       context: .
+      image_owner: crvouga-organization
       notify_deploy: false
 
   normalizer_worker:
     uses: crvouga-organization/personal/.github/workflows/publish.yml@main
     secrets:
-      DEPLOY_DISPATCH_TOKEN: ${{ secrets.DEPLOY_DISPATCH_TOKEN }}
       CALLER_GITHUB_TOKEN: ${{ github.token }}
     with:
       service_id: normalizer-worker
       dockerfile: infra/worker.Dockerfile
       context: .
+      image_owner: crvouga-organization
       notify_deploy: false

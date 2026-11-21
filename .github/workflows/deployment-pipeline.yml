@@ -40,6 +40,9 @@ jobs:
           path: jwt
           role: github-actions
           jwtGithubAudience: https://vault.chrisvouga.dev
+          # The Turbo remote cache secrets were retired from Vault; build without
+          # remote cache when they are absent.
+          ignoreNotFound: true
           secrets: |
             secret/data/personal/prd TURBO_API | TURBO_API ;
             secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
@@ -72,6 +75,9 @@ jobs:
           path: jwt
           role: github-actions
           jwtGithubAudience: https://vault.chrisvouga.dev
+          # The Turbo remote cache secrets were retired from Vault; build without
+          # remote cache when they are absent.
+          ignoreNotFound: true
           secrets: |
             secret/data/personal/prd TURBO_API | TURBO_API ;
             secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
@@ -99,7 +105,7 @@ jobs:
             -p 9000:9000 \
             -e MINIO_ROOT_USER=minioadmin \
             -e MINIO_ROOT_PASSWORD=minioadmin \
-            minio/minio server /data
+            pgsty/minio:RELEASE.2026-08-04T00-00-00Z@sha256:b6bfe7239bfc83fb90d31612d9704d86039dd714f7904b3f1ad68f211e602372 server /data
 
       - name: Wait for MinIO
         run: |
@@ -116,6 +122,9 @@ jobs:
           path: jwt
           role: github-actions
           jwtGithubAudience: https://vault.chrisvouga.dev
+          # The Turbo remote cache secrets were retired from Vault; build without
+          # remote cache when they are absent.
+          ignoreNotFound: true
           secrets: |
             secret/data/personal/dev OPENAI_API_KEY | OPENAI_API_KEY ;
             secret/data/personal/prd TURBO_API | TURBO_API ;
@@ -154,7 +163,7 @@ jobs:
             -p 9000:9000 \
             -e MINIO_ROOT_USER=minioadmin \
             -e MINIO_ROOT_PASSWORD=minioadmin \
-            minio/minio server /data
+            pgsty/minio:RELEASE.2026-08-04T00-00-00Z@sha256:b6bfe7239bfc83fb90d31612d9704d86039dd714f7904b3f1ad68f211e602372 server /data
 
       - name: Wait for MinIO
         run: |
@@ -171,6 +180,9 @@ jobs:
           path: jwt
           role: github-actions
           jwtGithubAudience: https://vault.chrisvouga.dev
+          # The Turbo remote cache secrets were retired from Vault; build without
+          # remote cache when they are absent.
+          ignoreNotFound: true
           secrets: |
             secret/data/personal/prd TURBO_API | TURBO_API ;
             secret/data/personal/prd TURBO_TOKEN | TURBO_TOKEN ;
