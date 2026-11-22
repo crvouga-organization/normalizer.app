@@ -21,28 +21,27 @@ concurrency:
   cancel-in-progress: false
 
 # The normalizer services are not in the infra inventory, so images are
-# published without dispatching a deploy. The packages are linked to this
-# repository in the crvouga-organization namespace, so the workflow token can
-# push them; the repository has no working personal-namespace token.
+# published without dispatching a deploy. The ghcr.io/crvouga packages are
+# linked to this repository, so the workflow token can push them.
 jobs:
   normalizer:
-    uses: crvouga-organization/personal/.github/workflows/publish.yml@main
+    uses: crvouga/personal/.github/workflows/publish.yml@main
     secrets:
       CALLER_GITHUB_TOKEN: ${{ github.token }}
     with:
       service_id: normalizer
       dockerfile: infra/server.Dockerfile
       context: .
-      image_owner: crvouga-organization
+      image_owner: crvouga
       notify_deploy: false
 
   normalizer_worker:
-    uses: crvouga-organization/personal/.github/workflows/publish.yml@main
+    uses: crvouga/personal/.github/workflows/publish.yml@main
     secrets:
       CALLER_GITHUB_TOKEN: ${{ github.token }}
     with:
       service_id: normalizer-worker
       dockerfile: infra/worker.Dockerfile
       context: .
-      image_owner: crvouga-organization
+      image_owner: crvouga
       notify_deploy: false
