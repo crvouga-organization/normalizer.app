@@ -15,8 +15,13 @@ env:
   VAULT_ADDR: https://vault.chrisvouga.dev
   TURBO_TELEMETRY_DISABLED: 1
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
 jobs:
   type-check:
+    timeout-minutes: 30
     name: Type Check
     runs-on: ubuntu-latest
 
@@ -37,6 +42,7 @@ jobs:
         run: bunx turbo run type-check:once
 
   circular-deps:
+    timeout-minutes: 30
     name: Circular Dependency Check
     runs-on: ubuntu-latest
 
@@ -57,6 +63,7 @@ jobs:
         run: bunx turbo run circular
 
   test:
+    timeout-minutes: 30
     name: Test
     runs-on: ubuntu-latest
 
@@ -109,6 +116,7 @@ jobs:
         run: docker rm -f minio || true
 
   test-e2e:
+    timeout-minutes: 30
     name: E2E Tests
     # The pinned Playwright release has no Chromium build for Ubuntu 26.04,
     # which ubuntu-latest now resolves to.
@@ -178,6 +186,7 @@ jobs:
         run: docker rm -f minio || true
 
   migrate-production:
+    timeout-minutes: 30
     name: Migrate Production Database
     runs-on: ubuntu-latest
     needs: [type-check, circular-deps, test, test-e2e]

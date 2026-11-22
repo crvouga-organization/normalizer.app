@@ -16,6 +16,10 @@ permissions:
   contents: read
   packages: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
 # The normalizer services are not in the infra inventory, so images are
 # published without dispatching a deploy. The packages are linked to this
 # repository in the crvouga-organization namespace, so the workflow token can
